@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+src/agent.py
+src/mcp_server.py
+src/memory.py
+src/reader.py
+src/vector_store.py
+src/mcp_agent.egg-info/PKG-INFO
+src/mcp_agent.egg-info/SOURCES.txt
+src/mcp_agent.egg-info/dependency_links.txt
+src/mcp_agent.egg-info/requires.txt
+src/mcp_agent.egg-info/top_level.txt

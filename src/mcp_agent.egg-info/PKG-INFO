@@ -1,0 +1,154 @@
+Metadata-Version: 2.4
+Name: mcp-agent
+Version: 0.1.0
+Summary: A witty, concise RAG agent using FastMCP, ChromaDB, and Ollama
+Author: Harish Sutar
+Project-URL: Repository, https://github.com/hsutar87/mcp-agent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests>=2.31.0
+Requires-Dist: ollama>=0.4.7
+Requires-Dist: fastmcp>=0.4.1
+Requires-Dist: mcp>=1.2.0
+Requires-Dist: chromadb>=0.5.0
+Requires-Dist: pymupdf>=1.24.0
+Requires-Dist: python-docx>=1.1.0
+Requires-Dist: langchain-text-splitters>=0.2.0
+Requires-Dist: uvicorn>=0.30.0
+Dynamic: license-file
+
+```markdown
+# 💃 Silly Agent: Witty, Concise, and Dangerous
+
+> "Information is a heavy burden; let me carry it for you. Just don't expect me to be nice about it." — **Silly**
+
+Silly Agent is a local, RAG-powered (Retrieval-Augmented Generation) AI assistant that doesn't suffer fools. She is designed to be sharp-tongued, incredibly concise, and context-aware. She doesn't just answer; she judges, cites her sources, and remembers your previous blunders using a sliding-window conversation memory.
+
+Built with **FastMCP**, **ChromaDB**, and **Ollama**, Silly runs entirely on your local machine—keeping your data private and your VRAM usage optimized.
+
+---
+
+## ✨ Features
+
+- **Local RAG**: Ingests PDFs, DOCX, and TXT files into a local ChromaDB vector store.
+- **Dynamic Tool Discovery**: Uses FastMCP (SSE Transport) to discover and execute tools dynamically from the server.
+- **Witty Persona**: High-impact, low-word-count responses (Max 2-3 sentences).
+- **Short-Term Memory**: A dedicated `ConversationManager` tracks the last 6 messages for context-aware follow-ups.
+- **Self-Correction**: Automatically rewrites search queries if the initial retrieval fails.
+- **8GB VRAM Optimized**: Specifically tuned to run DeepSeek-R1 and Embeddings on consumer hardware.
+
+---
+
+## 🛠 Prerequisites
+
+1.  **Python 3.10+**
+2.  **Ollama**: [Download here](https://ollama.com/)
+3.  **uv**: The ultra-fast Python package installer. [Install here](https://docs.astral.sh/uv/getting-started/installation/)
+4.  **Ollama Models**:
+    ```bash
+    # The Brain (LLM)
+    ollama pull deepseek-r1:8b
+    
+    # The Librarian (Embeddings)
+    ollama pull mxbai-embed-large
+    ```
+
+---
+
+## 🚀 Installation
+
+This project uses `uv` for lightning-fast dependency management.
+
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/hsutar87/mcp-agent.git
+    cd mcp-agent
+    ```
+
+2.  **Sync Dependencies**:
+    ```bash
+    uv sync
+    ```
+
+---
+
+## 📖 How to Use
+
+### 1. Start the MCP Server
+Silly needs her toolbelt. Start the server in one terminal:
+```bash
+uv run python -m src.mcp_server
+```
+*The server will start on `http://localhost:8000/sse`.*
+
+### 2. Ingest your Data
+Drop your PDF, DOCX, or TXT files into the `data/` folder and run the ingestion:
+```bash
+uv run python main.py --ingest
+```
+
+**Example Interaction:**
+```text
+✨ Ingesting: Rumi_The_Book_of_Love.pdf
+Splitting into 124 chunks...
+Successfully ingested 124 chunks from Rumi_The_Book_of_Love.pdf
+✅ Ingestion Complete.
+```
+
+### 3. Chat with Silly
+Run the agent and prepare for wit:
+```bash
+uv run python main.py
+```
+
+**Example Interaction:**
+```text
+💬 You: What does Rumi say about love?
+
+💃 Silly: 
+🔍 *Checking the toolbelt...*
+🛠️ *Digging through: search_local_docs...*
+🧠 *Thinking...*
+Rumi suggests that love is the bridge between you and everything, requiring the dissolution of the self. [Source: Rumi_The_Book_of_Love.pdf]
+──────────────────────────────
+
+💬 You: What was my first question?
+
+💃 Silly: 
+🧠 *Thinking...*
+You asked about Rumi's take on love, though I suspect you're just testing my memory. [Source: History]
+```
+
+---
+
+## 💬 Interaction Commands
+
+- **`clear`**: Wipes Silly's short-term memory (useful if she gets confused).
+- **`exit`** or **`quit`**: Gracefully shuts down the session.
+- **Normal Text**: Ask anything. If she needs to check your files, she'll do it automatically.
+
+---
+
+## 📂 Project Structure
+
+- `src/reader.py`: Robust file parsing (PDF/Docx/Txt) with sanitization.
+- `src/vector_store.py`: ChromaDB & Ollama Embedding logic.
+- `src/memory.py`: Sliding-window conversation history management.
+- `src/agent.py`: The SillyAgent reasoning and dynamic tool-discovery loop.
+- `src/mcp_server.py`: FastMCP Server (SSE Transport).
+- `main.py`: Entry point for ingestion and the interactive chat loop.
+
+---
+
+## ⚠️ Technical Notes
+
+- **VRAM**: Optimized for **8GB**. If the model is slow, it's likely "thinking."
+- **Thinking Tags**: You will see `<think>` blocks in the stream; this is DeepSeek-R1's internal reasoning process.
+- **Citations**: Silly is strictly instructed to cite sources as `[Source: filename]`.
+- **Status Indicators**: The UI provides real-time feedback (🔍 Checking, 🛠️ Digging, 🧠 Thinking) so you know the agent is active.
+
+---
+
+**GitHub Repository**: [https://github.com/hsutar87/mcp-agent](https://github.com/hsutar87/mcp-agent)
+```

@@ -1,0 +1,27 @@
+[project]
+name = "mcp-agent"
+version = "0.1.0"
+description = "A witty, concise RAG agent using FastMCP, ChromaDB, and Ollama"
+authors = [
+    { name = "Harish Sutar" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "requests>=2.31.0",
+  "ollama>=0.4.7",
+  "fastmcp>=0.4.1",
+  "mcp>=1.2.0",
+  "chromadb>=0.5.0",
+  "pymupdf>=1.24.0",
+  "python-docx>=1.1.0",
+  "langchain-text-splitters>=0.2.0",
+  "uvicorn>=0.30.0",
+]
+
+[project.urls]
+Repository = "https://github.com/hsutar87/mcp-agent"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
