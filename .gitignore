@@ -4,7 +4,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-
+# SSL Certificates
+*.pem
 
 # Local Data (Crucial: prevents uploading your private PDFs/Docs)
 data/*
