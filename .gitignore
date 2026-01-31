@@ -7,6 +7,9 @@ __pycache__/
 # SSL Certificates
 *.pem
 
+# egg info
+*.egg-info
+
 # Local Data (Crucial: prevents uploading your private PDFs/Docs)
 data/*
 !data/.gitkeep
