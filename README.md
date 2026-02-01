@@ -40,8 +40,8 @@ ollama pull mxbai-embed-large
 ## 🚀 Installation
 
 ```bash
-git clone https://github.com/hsutar87/mcp-agent.git
-cd mcp-agent
+git clone https://github.com/hsutar87/silly-agent.git
+cd silly-agent
 uv sync
 ```
 

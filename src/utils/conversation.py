@@ -10,6 +10,6 @@ class ConversationManager:
         """Add a message to the conversation history."""
         self.history.append({"role": role, "content": message})
 
-    def clear_history(self):
+    def clear(self):
         """Clear the conversation history."""
         self.history = []
