@@ -42,7 +42,11 @@ def run_ingestion(mode="delta"):
 
 
 async def chat_loop():
-    agent = SillyAgent(model="deepseek-r1:8b")
+    agent = SillyAgent(
+        model="deepseek-r1:8b",
+        sse_url="http://localhost:8000/sse"
+    )
+    
     store = VectorStoreManager()
 
     SYSTEM_PROMPT = """

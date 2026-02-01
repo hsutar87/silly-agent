@@ -1,5 +1,0 @@
-agent
-mcp_server
-memory
-reader
-vector_store
